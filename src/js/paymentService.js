@@ -1,11 +1,11 @@
 'use strict';
 
-window.paymentModel = {
+var paymentModel = {
 	lastCardNumberInput: '',
 	oldCardNumber: 0,
 	cardType: '',
 	oldCardExpiration: '',
-	lastCardExpiration: ''
+	lastCardExpiration: '',
 };
 
 function addClass(elem, className) {
@@ -184,50 +184,51 @@ function cardNumberOnInput(e) {
 		removeClass(imgEl, 'unknown');
 	}
 
-	if (e.target.value.length < window.paymentModel.lastCardNumberInput.length) {
-		window.paymentModel.oldCardNumber = window.paymentModel.oldCardNumber.substr(0, window.paymentModel.oldCardNumber.length - 1);
+	window.PaymentService.finalNumbers.creditCardNumber = numbers;
+	if (e.target.value.length < paymentModel.lastCardNumberInput.length) {
+		paymentModel.oldCardNumber = paymentModel.oldCardNumber.substr(0, paymentModel.oldCardNumber.length - 1);
 	}
 	else if ((numbers.length < 17 && ccType !== 'amex') || numbers.length < 16) {
-		window.paymentModel.oldCardNumber = numbers;
+		paymentModel.oldCardNumber = numbers;
 	}
 
 	var newNumber = '';
 	var i = 0;
 
 	if (ccType === 'amex') {
-		while (i < window.paymentModel.oldCardNumber.length) {
+		while (i < paymentModel.oldCardNumber.length) {
 			if (i === 4) {
 				newNumber += '  ';
 				i += 6;
-				newNumber += window.paymentModel.oldCardNumber.substr(4, 6);
+				newNumber += paymentModel.oldCardNumber.substr(4, 6);
 			}
 			else if (i === 10) {
 				newNumber += '  ';
 				i += 5;
-				newNumber += window.paymentModel.oldCardNumber.substr(10, 5);
+				newNumber += paymentModel.oldCardNumber.substr(10, 5);
 			}
 			else {
 				i += 4;
-				newNumber += window.paymentModel.oldCardNumber.substr(0, 4);
+				newNumber += paymentModel.oldCardNumber.substr(0, 4);
 			}
 		}
 	}
 	else {
-		for (i = 0; i < window.paymentModel.oldCardNumber.length; i += 4) {
+		for (i = 0; i < paymentModel.oldCardNumber.length; i += 4) {
 			if (i !== 0) {
 				newNumber += ' ';
 			}
-			newNumber += window.paymentModel.oldCardNumber.substr(i, 4);
+			newNumber += paymentModel.oldCardNumber.substr(i, 4);
 		}
 	}
 
 	e.target.value = newNumber;
-	window.paymentModel.lastCardNumberInput = newNumber;
+	paymentModel.lastCardNumberInput = newNumber;
 
 	var newJustNumberLength = newNumber.replace(/[\D]*/g, '').length;
 
 	if (newJustNumberLength === 16 || (ccType === 'amex' && newJustNumberLength === 15)) {
-		window.paymentModel.cardType = ccType;
+		paymentModel.cardType = ccType;
 		var currentEl = e.target.parentNode.querySelector('.card-number');
 		var nextEl = e.target.parentNode.querySelector('.card-expiration');
 
@@ -273,14 +274,15 @@ function cardExpirationOnKeydown(e) {
 
 function cardExpirationOnInput(e) {
 	var numbers = e.target.value.replace(/[\D]*/g, '');
-	if (e.target.value.length < window.paymentModel.lastCardExpiration.length) {
-		window.paymentModel.oldCardExpiration = window.paymentModel.oldCardExpiration.substr(0, window.paymentModel.oldCardExpiration.length - 1);
+	if (e.target.value.length < paymentModel.lastCardExpiration.length) {
+		paymentModel.oldCardExpiration = paymentModel.oldCardExpiration.substr(0, paymentModel.oldCardExpiration.length - 1);
 	}
 	else if (numbers.length < 5) {
-		window.paymentModel.oldCardExpiration = numbers;
+		paymentModel.oldCardExpiration = numbers;
 	}
 
 	var parsedInt;
+	window.PaymentService.finalNumbers.expiration = numbers;
 
 	if (numbers.length === 0) {
 		moveInputToNumberFromExpiration(e);
@@ -289,7 +291,7 @@ function cardExpirationOnInput(e) {
 		if (numbers.length === 1) {
 			parsedInt = parseInt(numbers);
 			if (parsedInt > 1) {
-				window.paymentModel.oldCardExpiration = '';
+				paymentModel.oldCardExpiration = '';
 			}
 		}
 
@@ -297,25 +299,25 @@ function cardExpirationOnInput(e) {
 			parsedInt = parseInt(numbers);
 
 			if (parsedInt > 12) {
-				window.paymentModel.oldCardExpiration = numbers.substr(0, 1);
+				paymentModel.oldCardExpiration = numbers.substr(0, 1);
 			}
 		}
 
 		if (numbers.length === 3) {
 			parsedInt = parseInt(numbers.substr(2));
 			if (parsedInt === 0) {
-				window.paymentModel.oldCardExpiration = numbers.substr(0, 2);
+				paymentModel.oldCardExpiration = numbers.substr(0, 2);
 			}
 		}
 
 		if (numbers.length === 4) {
 			parsedInt = parseInt(numbers.substr(2));
 			if (parsedInt < 16) {
-				window.paymentModel.oldCardExpiration = numbers.substr(0, 3);
+				paymentModel.oldCardExpiration = numbers.substr(0, 3);
 			}
 		}
 
-		numbers = window.paymentModel.oldCardExpiration;
+		numbers = paymentModel.oldCardExpiration;
 
 		if (numbers.length >= 2) {
 			e.target.value = numbers.substr(0, 2) + '/' + numbers.substr(2, 2);
@@ -340,7 +342,7 @@ function cardExpirationOnInput(e) {
 			nextEl.onkeydown = cardExpirationOnKeydown;
 		}
 
-		window.paymentModel.lastCardExpiration = e.target.value;
+		paymentModel.lastCardExpiration = e.target.value;
 	}
 }
 
@@ -369,12 +371,13 @@ function cardCvvOnInput(e) {
 	var nextEl;
 	var thirdEl;
 	var numbers = e.target.value.replace(/[\D]*/g, '');
+	window.PaymentService.finalNumbers.cvv = numbers;
 	if (numbers.length === 0) {
 		moveInputToExpirationFromCvv(e);
 	}
 	else {
-		if ((e.target.value.length >= 3 && window.paymentModel.cardType !== 'amex') || (window.paymentModel.cardType === 'amex' && e.target.value.length >= 4)) {
-			if (window.paymentModel.cardType === 'amex') {
+		if ((e.target.value.length >= 3 && paymentModel.cardType !== 'amex') || (paymentModel.cardType === 'amex' && e.target.value.length >= 4)) {
+			if (paymentModel.cardType === 'amex') {
 				e.target.value = e.target.value.substr(0, 4);
 			}
 			else {
@@ -415,6 +418,7 @@ function cardZipOnKeydown(e) {
 
 function cardZipOnInput(e) {
 	var numbers = e.target.value.replace(/[\D]*/g, '');
+	window.PaymentService.finalNumbers.zip = numbers;
 	if (numbers.length === 0) {
 		moveInputToCvvFromZip(e);
 	}
@@ -476,5 +480,6 @@ window.PaymentService = {
 
 		paymentContainer.appendChild(creditCardNumbersContainer);
 
-	}
+	},
+	finalNumbers: {}
 };
