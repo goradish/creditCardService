@@ -91,6 +91,7 @@ $cardZipWidth: 25%;
   display: flex;
   border: 1px solid black;
   border-radius: 5px;
+  max-width: 300px;
 
   .credit-card-type
     width: 50px;
@@ -101,6 +102,7 @@ $cardZipWidth: 25%;
       background-position: 2% 66%;
       height: 20px;
       padding-top: 17px;
+      margin-left: 5px;
       &.mastercard
         background-image: url(../images/mastercard.svg);
       &.amex
@@ -111,10 +113,10 @@ $cardZipWidth: 25%;
         display: inline-block
 
   .credit-card-numbers
-    width: 80%;
+    width: calc(100% - 50px);
     display: flex;
     align-items: center;
-    margin-top: -4px;
+    justify-content: space-between;
 
   input
     background: none;

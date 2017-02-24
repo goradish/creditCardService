@@ -418,7 +418,7 @@ function cardZipOnInput(e) {
 	if (numbers.length === 0) {
 		moveInputToCvvFromZip(e);
 	}
-	else if (e.target.value > 6) {
+	else if (e.target.value > 5) {
 		e.target.value = e.target.value.substr(0, 5);
 	}
 }
@@ -466,7 +466,7 @@ window.PaymentService = {
 
 		var cardZipInput = document.createElement('input');
 		cardZipInput.className = 'card-zip start';
-		cardZipInput.placeholder = 'zip code';
+		cardZipInput.placeholder = 'zip';
 		cardZipInput.type = 'tel';
 
 		creditCardNumbersContainer.appendChild(cardNumberInput);
