@@ -1,0 +1,19 @@
+{
+  "name": "creditCardService",
+  "description": "Single line credit card input implemented in html and javascript",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:goradish/creditCardService.git"
+  },
+	"keywords": [
+		"creditcardinput",
+		"singleline"
+	],
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^3.1.0"
+  }
+}
