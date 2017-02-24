@@ -2,6 +2,7 @@
 
 This is a single line credit card input in html and JavaScript.
 
+![](http://i.giphy.com/xTiN0xoImsG8TSx6XC.gif)
 
 ## Install
 1. Run `npm install && gulp` to create the `dist` directory.
