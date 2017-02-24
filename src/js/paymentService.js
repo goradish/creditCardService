@@ -170,7 +170,7 @@ function moveInputForward(currentEl, nextEl, thirdEl) {
 
 function cardNumberOnInput(e) {
 	var numbers = e.target.value.replace(/[\D]*/g, '');
-	var imgEl = e.target.parentNode.parentNode.querySelector('.cc-type-img');
+	var imgEl = e.target.parentNode.parentNode.querySelector('.card-type');
 	var ccType;
 
 	if (numbers.length > 1) {
@@ -440,6 +440,7 @@ window.PaymentService = {
 
 		var cardType = document.createElement('div');
 		cardType.className = 'card-type';
+
 		creditCardTypeContainer.appendChild(cardType);
 		paymentContainer.appendChild(creditCardTypeContainer);
 

@@ -3,6 +3,7 @@ $cardExpirationWidth: 20%;
 $cardCvvWidth: 15%;
 $cardZipWidth: 25%;
 
+
 @keyframes ccNumberSmaller
   from
     text-indent: 0;
@@ -83,149 +84,86 @@ $cardZipWidth: 25%;
     height: 100%;
     opacity: 0;
 
-.credit-card-type
-  .card-type
+
+#paymentContainer
+  display: flex;
+
+  .credit-card-type
+    width: 50px;
+    .card-type
+      width: 100%;
+      background-size: 75%;
+      background-repeat: no-repeat;
+      background-position: 2% 66%;
+      height: 20px;
+      padding-top: 17px;
+      &.mastercard
+        background-image: url(../images/mastercard.svg);
+      &.amex
+        background-image: url(../images/amex.svg);
+      &.visa
+        background-image: url(../images/visa.svg);
+      &.show
+        display: inline-block
+
+  .credit-card-numbers
+    width: 80%;
     display: flex;
-    width: 15px;
-    height: 15px
-    margin-left: 0px;
-    position: absolute;
-    left: 17px;
-    align-content: center;
-    justify-content: flex-start;
     align-items: center;
-    margin-right: -17px;
-    top: 17px;
-    background-color: #FF0000;
-    mask-repeat: no-repeat;
-    mask-size: 100%;
-    mask-position: 100%;
-    mask-image: url("/images/card.svg"); 
+    margin-top: -4px;
 
-.credit-card-numbers
-  width: 80%;
-  position: absolute;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  margin-top: -4px;
-  margin-left: 51px;
-
-input
-  background: none;
-  border: 0;
-  box-shadow: none;
-  outline: 0;
-  border-radius: 0%;
-  padding: .5em 2px;
-  padding-left: 6px;
-  padding-top: 9px;
-  font-size: 15px;
-  // text-align: center;
-  &.transitioning-out
-    animation-iteration-count: 1;
-    animation-duration: .4s;
-    animation-fill-mode: both;
-  &.transitioning-in
-    animation-iteration-count: 1;
-    animation-duration: .4s;
-    animation-fill-mode: both;
-
-.card-number
-  width: $cardNumberWidth;
-  &.transitioning-out
-    animation-name: ccNumberSmaller;
-  &.transitioning-in
-    animation-name: ccNumberLarger;
-
-.card-expiration
-  width: $cardExpirationWidth;
-  &.transitioning-out
-    animation-name: ccExpirationSmaller;
-  &.transitioning-in
-    animation-name: ccExpirationLarger;
-
-.card-cvv
-  width: $cardCvvWidth;
-  &.transitioning-out
-    animation-name: ccCvvSmaller;
-  &.transitioning-in
-    animation-name: ccCvvLarger;
-
-.card-zip
-  width: $cardZipWidth;
-  &.transitioning-out
-    animation-name: ccZipSmaller;
-  &.transitioning-in
-    animation-name: ccZipLarger;
-
-.start
-  width: 0;
-  height: 0;
-  opacity: 0;
-
-.credit-card-info-holder
-  width: 100%;
-  background: white;
-  height: 50px;
-  overflow: hidden;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  padding-top: 3px;
-  padding-left: 5px;
-  margin-top: 17px;
-  border-radius: 3px;
-  background: #Fff;
-  border-top: 1px solid #EDEEF1;
-  border-bottom: 1px solid #EDEEF1;
   input
-    font-weight: 300;
-.fa-credit-card
-  &.hide
-    display: none;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    outline: 0;
+    border-radius: 0%;
+    padding: .5em 2px;
+    padding-left: 6px;
+    padding-top: 9px;
+    font-size: 15px;
+    // text-align: center;
+    &.transitioning-out
+      animation-iteration-count: 1;
+      animation-duration: .4s;
+      animation-fill-mode: both;
+    &.transitioning-in
+      animation-iteration-count: 1;
+      animation-duration: .4s;
+      animation-fill-mode: both;
 
-.cc-type-img
-  width: 100%;
-  background: url(/images/credit-card-blue.png);
-  background-size: 75%;
-  background-repeat: no-repeat;
-  height: 100%;
-  background-position: 2% 66%;
-  height: 20px;
-  padding-top: 17px;
+  .card-number
+    width: $cardNumberWidth;
+    &.transitioning-out
+      animation-name: ccNumberSmaller;
+    &.transitioning-in
+      animation-name: ccNumberLarger;
 
-  &.mastercard
-    background-image: url(/images/mastercard.svg);
-    background-size: 85%;
-    background-repeat: no-repeat;
-    height: 100%;
-    background-position: 0% 66%;
-    height: 20px;
-    padding-top: 12px;
-  &.amex
-    background-image: url(/images/amex.svg);
-    background-size: 85%;
-    background-repeat: no-repeat;
-    height: 100%;
-    background-position: 0% 66%;
-    height: 20px;
-    padding-top: 12px;
-  &.visa
-    background-image: url(/images/visa.svg);
-    background-size: 85%;
-    background-repeat: no-repeat;
-    height: 100%;
-    background-position: 0% 66%;
-    height: 20px;
-    padding-top: 12px;
-  &.unkown
-    background-image: url(/images/credit-card-blue.png);
-    background-size: 85%;
-    background-repeat: no-repeat;
-    height: 100%;
-    background-position: 0% 66%;
-    height: 20px;
-    padding-top: 12px;
-  &.show
-    display: inline-block
+  .card-expiration
+    width: $cardExpirationWidth;
+    &.transitioning-out
+      animation-name: ccExpirationSmaller;
+    &.transitioning-in
+      animation-name: ccExpirationLarger;
+
+  .card-cvv
+    width: $cardCvvWidth;
+    &.transitioning-out
+      animation-name: ccCvvSmaller;
+    &.transitioning-in
+      animation-name: ccCvvLarger;
+
+  .card-zip
+    width: $cardZipWidth;
+    &.transitioning-out
+      animation-name: ccZipSmaller;
+    &.transitioning-in
+      animation-name: ccZipLarger;
+
+  .start
+    width: 0;
+    height: 0;
+    opacity: 0;
+
+// .card-type
+

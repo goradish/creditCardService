@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="default">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" type="text/css" href="dist/css/paymentService.css">
+		<style>
+			a.cc-source {
+				font-size: 10px;
+				float: right;
+			}
+		</style>
 	</head>
 	<body>
 
 		<div id="paymentContainer"></div>
+		<br/>
 
 
 		<script src="dist/js/paymentService.js"></script>
 		<script type="text/javascript">
 			PaymentService.init('paymentContainer');
 		</script>
+
+		<a class="cc-source" href="https://icons8.com/web-app/1429/Visa">Visa icon source</a> <br/>
+		<a class="cc-source" href="https://icons8.com/web-app/1433/american-express">Amex icon source</a> <br/>
+		<a class="cc-source" href="https://icons8.com/web-app/11080/MasterCard-Filled">Mastercard icon source</a> <br/>
 	</body>
 </html>
