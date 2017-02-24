@@ -1,5 +1,13 @@
 'use strict';
 
+window.paymentModel = {
+	lastCardNumberInput: '',
+	oldCardNumber: 0,
+	cardType: '',
+	oldCardExpiration: '',
+	lastCardExpiration: ''
+};
+
 function addClass(elem, className) {
 	if (!elem) {
 		return;
@@ -64,12 +72,9 @@ function moveInputToNumberFromExpiration(e) {
 }
 
 function moveInputToCvvFromZip(e) {
-	var currentEl;
-	var nextEl;
-	var thirdEl;
-	currentEl = e.target.parentNode.querySelector('.card-zip');
-	nextEl = e.target.parentNode.querySelector('.card-cvv');
-	thirdEl = e.target.parentNode.querySelector('.card-expiration');
+	var currentEl = e.target.parentNode.querySelector('.card-zip');
+	var nextEl = e.target.parentNode.querySelector('.card-cvv');
+	var thirdEl = e.target.parentNode.querySelector('.card-expiration');
 
 	moveInputBack(currentEl, nextEl, thirdEl);
 
@@ -94,12 +99,13 @@ function moveInput(currentEl, nextEl, thirdEl) {
 	removeClass(currentEl, 'start');
 	removeClass(currentEl, 'transitioning-out');
 	removeClass(currentEl, 'transitioning-in');
-	var currentVal = currentEl.value.toString(),
-		currentClass = currentEl.classList.toString(),
-		currentPlaceholder = currentEl.placeholder.toString(),
-		nextPlaceholder = nextEl.placeholder.toString(),
-		nextVal = nextEl.value.toString(),
-		nextClass = nextEl.classList.toString();
+
+	var currentVal = currentEl.value.toString();
+	var currentClass = currentEl.classList.toString();
+	var currentPlaceholder = currentEl.placeholder.toString();
+	var nextPlaceholder = nextEl.placeholder.toString();
+	var nextVal = nextEl.value.toString();
+	var nextClass = nextEl.classList.toString();
 
 	currentEl.value = nextVal;
 	currentEl.className = nextClass;
@@ -111,12 +117,9 @@ function moveInput(currentEl, nextEl, thirdEl) {
 }
 
 function moveInputToExpirationFromCvv(e) {
-	var currentEl;
-	var nextEl;
-	var thirdEl;
-	currentEl = e.target.parentNode.querySelector('.card-cvv');
-	nextEl = e.target.parentNode.querySelector('.card-expiration');
-	thirdEl = e.target.parentNode.querySelector('.card-zip');
+	var currentEl = e.target.parentNode.querySelector('.card-cvv');
+	var nextEl = e.target.parentNode.querySelector('.card-expiration');
+	var thirdEl = e.target.parentNode.querySelector('.card-zip');
 
 	moveInputBack(currentEl, nextEl, thirdEl);
 
@@ -165,17 +168,10 @@ function moveInputForward(currentEl, nextEl, thirdEl) {
 	currentEl.parentNode.insertBefore(nextEl, currentEl);
 }
 
-window.paymentModel = {
-	lastCardNumberInput: '',
-	oldCardNumber: 0,
-	cardType: '',
-	oldCardExpiration: ''
-};
-
 function cardNumberOnInput(e) {
-	var numbers = e.target.value.replace(/[\D]*/g, ''),
-		imgEl = e.target.parentNode.parentNode.querySelector('.cc-type-img'),
-		ccType;
+	var numbers = e.target.value.replace(/[\D]*/g, '');
+	var imgEl = e.target.parentNode.parentNode.querySelector('.cc-type-img');
+	var ccType;
 
 	if (numbers.length > 1) {
 		ccType = getCreditCardType(numbers);
@@ -195,8 +191,8 @@ function cardNumberOnInput(e) {
 		window.paymentModel.oldCardNumber = numbers;
 	}
 
-	var newNumber = '',
-		i = 0;
+	var newNumber = '';
+	var i = 0;
 
 	if (ccType === 'amex') {
 		while (i < window.paymentModel.oldCardNumber.length) {
@@ -232,8 +228,8 @@ function cardNumberOnInput(e) {
 
 	if (newJustNumberLength === 16 || (ccType === 'amex' && newJustNumberLength === 15)) {
 		window.paymentModel.cardType = ccType;
-		var currentEl = e.target.parentNode.querySelector('.card-number'),
-			nextEl = e.target.parentNode.querySelector('.card-expiration');
+		var currentEl = e.target.parentNode.querySelector('.card-number');
+		var nextEl = e.target.parentNode.querySelector('.card-expiration');
 
 		moveInputForward(currentEl, nextEl);
 
@@ -277,8 +273,6 @@ function cardExpirationOnKeydown(e) {
 
 function cardExpirationOnInput(e) {
 	var numbers = e.target.value.replace(/[\D]*/g, '');
-	var currentEl;
-	var nextEl;
 	if (e.target.value.length < window.paymentModel.lastCardExpiration.length) {
 		window.paymentModel.oldCardExpiration = window.paymentModel.oldCardExpiration.substr(0, window.paymentModel.oldCardExpiration.length - 1);
 	}
@@ -331,8 +325,8 @@ function cardExpirationOnInput(e) {
 		}
 
 		if (numbers.length === 4) {
-			currentEl = e.target.parentNode.querySelector('.card-expiration');
-			nextEl = e.target.parentNode.querySelector('.card-cvv');
+			var currentEl = e.target.parentNode.querySelector('.card-expiration');
+			var nextEl = e.target.parentNode.querySelector('.card-cvv');
 			var thirdEl = e.target.parentNode.querySelector('.card-zip');
 
 			moveInputForward(currentEl, nextEl, thirdEl);
@@ -470,7 +464,7 @@ window.PaymentService = {
 		cardCvvInput.type = 'tel';
 
 		var cardZipInput = document.createElement('input');
-		cardZipInput.className = 'card-number';
+		cardZipInput.className = 'card-zip start';
 		cardZipInput.placeholder = 'zip code';
 		cardZipInput.type = 'tel';
 

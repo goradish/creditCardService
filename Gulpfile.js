@@ -1,6 +1,7 @@
 'use strict';
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var minify = require('gulp-minify');
 
 gulp.task('styles', function () {
 	gulp.src('src/sass/**/*.sass')
@@ -10,6 +11,7 @@ gulp.task('styles', function () {
 
 gulp.task('build-js', function () {
 	gulp.src('src/js/**/*.js')
+		.pipe(minify())
 		.pipe(gulp.dest('dist/js/'));
 });
 
