@@ -1,6 +1,6 @@
 # Credit Card Service
 
-This is a single line credit card input in html and JavaScript.
+This is a single line credit card input in JavaScript.
 
 ![](http://i.giphy.com/xTiN0xoImsG8TSx6XC.gif)
 
