@@ -1,6 +1,6 @@
 # Credit Card Service
 
-This is a single line credit card input in JavaScript.
+A single line credit card input written in JavaScript that will switch to the next input once the information has been filled out, so no touch/mouse events are needed from the user.
 
 ![](http://i.giphy.com/xTiN0xoImsG8TSx6XC.gif)
 
